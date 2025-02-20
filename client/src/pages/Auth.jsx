@@ -1,7 +1,11 @@
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
 
 const Auth = ({ open, onClose }) => {
+  const location = useLocation();
+  const isLogin = location.pathname === LOGIN_ROUTE;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -31,28 +35,39 @@ const Auth = ({ open, onClose }) => {
         }}
       >
         <Typography variant="h6" component="h2">
-          Введіть ваші дані
+          {isLogin ? "Authentication" : "Registration"}
         </Typography>
         <TextField
-          label="Ім'я"
+          label="Email"
           variant="outlined"
+          type="email"
           fullWidth
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <TextField
-          label="Email"
-          type="email"
+          label="Password"
           variant="outlined"
           fullWidth
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button type="submit" variant="contained" color="primary">
-          Надіслати
-        </Button>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {isLogin ? (
+            <div>
+              <NavLink to={REGISTRATION_ROUTE}>Registration</NavLink>
+            </div>
+          ) : (
+            <div>
+              <NavLink to={LOGIN_ROUTE}>Authentication</NavLink>
+            </div>
+          )}
+          <Button type="submit" variant="contained" color="primary">
+            {isLogin ? "Log in" : "Registration"}
+          </Button>
+        </div>
       </Box>
     </Modal>
   );

@@ -5,48 +5,61 @@ export default class DeviceStore {
     this._types = [
       { id: 1, name: "Холодильник" },
       { id: 2, name: "Смартфоны" },
+      { id: 3, name: "Ноутбуки" },
+      { id: 4, name: "Телевизоры" },
     ];
     this._brands = [
       { id: 1, name: "Samsung" },
       { id: 2, name: "Apple" },
+      { id: 3, name: "Lenovo" },
+      { id: 4, name: "Asus" },
     ];
     this._devices = [
       {
         id: 1,
-        name: "Samsung",
+        name: "12 pro max",
         price: 25000,
         rating: 5,
-        img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.saturn.de%2Fde%2Fproduct%2F_apple-iphone-12-5g-2694646.html&psig=AOvVaw1uvEXu0oA5u4m1OIpOPe91&ust=1740083754141000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi4haLL0IsDFQAAAAAdAAAAABAE",
+        img: "/img/1a8aff6e399487efb30623000071dd08.jpg",
       },
       {
         id: 2,
-        name: "Samsung",
+        name: "11 pro",
         price: 25000,
         rating: 5,
-        img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.saturn.de%2Fde%2Fproduct%2F_apple-iphone-12-5g-2694646.html&psig=AOvVaw1uvEXu0oA5u4m1OIpOPe91&ust=1740083754141000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi4haLL0IsDFQAAAAAdAAAAABAE",
+        img: "/img/1a8aff6e399487efb30623000071dd08.jpg",
       },
       {
-        id: 3,
-        name: "Samsung",
+        id: 1,
+        name: "12 pro max",
         price: 25000,
         rating: 5,
-        img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.saturn.de%2Fde%2Fproduct%2F_apple-iphone-12-5g-2694646.html&psig=AOvVaw1uvEXu0oA5u4m1OIpOPe91&ust=1740083754141000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi4haLL0IsDFQAAAAAdAAAAABAE",
+        img: "/img/1a8aff6e399487efb30623000071dd08.jpg",
       },
       {
-        id: 4,
-        name: "Samsung",
+        id: 2,
+        name: "11 pro",
         price: 25000,
         rating: 5,
-        img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.saturn.de%2Fde%2Fproduct%2F_apple-iphone-12-5g-2694646.html&psig=AOvVaw1uvEXu0oA5u4m1OIpOPe91&ust=1740083754141000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi4haLL0IsDFQAAAAAdAAAAABAE",
+        img: "/img/1a8aff6e399487efb30623000071dd08.jpg",
       },
       {
-        id: 5,
-        name: "Samsung",
+        id: 1,
+        name: "12 pro max",
         price: 25000,
         rating: 5,
-        img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.saturn.de%2Fde%2Fproduct%2F_apple-iphone-12-5g-2694646.html&psig=AOvVaw1uvEXu0oA5u4m1OIpOPe91&ust=1740083754141000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJi4haLL0IsDFQAAAAAdAAAAABAE",
+        img: "/img/1a8aff6e399487efb30623000071dd08.jpg",
+      },
+      {
+        id: 2,
+        name: "11 pro",
+        price: 25000,
+        rating: 5,
+        img: "/img/1a8aff6e399487efb30623000071dd08.jpg",
       },
     ];
+    this._selectedType = null;
+    this._selectedBrand = null;
 
     makeAutoObservable(this);
   }
@@ -60,6 +73,12 @@ export default class DeviceStore {
   setDevices(devices) {
     this._devices = devices;
   }
+  setSelectedType(type) {
+    this._selectedType = type;
+  }
+  setSelectedBrand(brand) {
+    this._selectedBrand = brand;
+  }
 
   get types() {
     return this._types;
@@ -69,5 +88,11 @@ export default class DeviceStore {
   }
   get devices() {
     return this._devices;
+  }
+  get selectedType() {
+    return this._selectedType;
+  }
+  get selectedBrand() {
+    return this._selectedBrand;
   }
 }
