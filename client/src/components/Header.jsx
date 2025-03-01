@@ -3,22 +3,22 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import { Context } from "..";
-import { useNavigate } from "react-router-dom"; // Импортируем useNavigate
-import { SHOP_ROUTE, ADMIN_ROUTE } from "../utils/consts"; // Добавляем ADMIN_ROUTE
+import { useNavigate } from "react-router-dom";
+import { SHOP_ROUTE, ADMIN_ROUTE } from "../utils/consts";
 import { Button, ButtonGroup } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import Auth from "../pages/Auth";
-import { NavLink } from "react-router-dom"; // Добавляем NavLink, если он нужен
+import { NavLink } from "react-router-dom";
 
 const Header = observer(() => {
   const { user } = React.useContext(Context);
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
-  const navigate = useNavigate(); // Хук для навигации
+  const navigate = useNavigate();
 
   const handleCloseModal = () => setOpenAuthModal(false);
 
   const handleAdminClick = () => {
-    navigate(ADMIN_ROUTE); // Переход на страницу админ панели
+    navigate(ADMIN_ROUTE);
   };
 
   return (
@@ -44,7 +44,7 @@ const Header = observer(() => {
                 <Button
                   variant="text"
                   color="default"
-                  onClick={handleAdminClick} // Переход на админ страницу
+                  onClick={handleAdminClick}
                 >
                   Admin
                 </Button>
@@ -61,7 +61,7 @@ const Header = observer(() => {
                 <Button
                   variant="text"
                   color="default"
-                  onClick={() => user.setIsAuth(true)}
+                  onClick={() => setOpenAuthModal(true)} // Открываем модалку
                 >
                   Registration
                 </Button>

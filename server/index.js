@@ -5,25 +5,46 @@ const models = require("./models/models.js");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const router = require("./routes/rout.js");
-const PORT = process.env.PORT || 5002;
 const errorHeandler = require("./middleware/ErrorHaendlingMiddleware.js");
 const path = require("path");
 
+const PORT = process.env.PORT || 5002;
+
 const app = express();
-app.use(cors());
+
+// Разрешаем доступ с фронтенда
+app.use(
+    cors({
+        origin: "http://localhost:3000", // Разрешить доступ с вашего фронтенда
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true, // Разрешаем отправку куки
+    })
+);
+
+// Обработка OPTIONS-запросов для CORS (для preflight-запросов)
+app.options("*", cors());
+
+// Подключаем middleware для обработки JSON и статики
 app.use(express.json());
-app.use(express.static(path.relative(__dirname, "static")));
+app.use(express.static(path.join(__dirname, "static")));
 app.use(fileUpload({}));
+
+// Подключаем маршруты
 app.use("/api", router);
+
+// Обработка ошибок
 app.use(errorHeandler);
 
+// Запуск сервера и подключение к базе данных
 const start = async() => {
     try {
         await sequelize.authenticate();
+        console.log("База данных подключена...");
         await sequelize.sync();
-        app.listen(PORT, () => console.log(`Сервет работает на ${PORT}`));
+        app.listen(PORT, () => console.log(`Сервер работает на порту ${PORT}`));
     } catch (e) {
-        console.log(e);
+        console.error("Невозможно подключиться к базе данных:", e);
     }
 };
 

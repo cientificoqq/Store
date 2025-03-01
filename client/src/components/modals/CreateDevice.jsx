@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Dialog,
   DialogActions,
@@ -6,17 +6,25 @@ import {
   DialogTitle,
   TextField,
   Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
+import { Context } from "../..";
 
 const CreateDevice = ({ open, onClose }) => {
+  const { device } = useContext(Context);
   const [deviceData, setDeviceData] = useState({
     name: "",
     price: "",
     description: "",
     img: "",
+    type: "",
+    brand: "",
   });
 
-  // Обработка изменений в форме
+  // Обработчик изменения значения в полях ввода
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDeviceData({
@@ -25,17 +33,59 @@ const CreateDevice = ({ open, onClose }) => {
     });
   };
 
-  // Обработка отправки формы
+  // Обработчик отправки формы
   const handleSubmit = () => {
     console.log("Новый девайс:", deviceData);
-    onClose(); // Закрытие модального окна
-    setDeviceData({ name: "", price: "", description: "", img: "" }); // Очистка формы
+    onClose();
+    setDeviceData({
+      name: "",
+      price: "",
+      description: "",
+      img: "",
+      type: "",
+      brand: "",
+    });
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Создание нового девайса</DialogTitle>
       <DialogContent>
+  
+        <FormControl fullWidth margin="dense">
+          <InputLabel>Выберите тип</InputLabel>
+          <Select
+            label="Выберите тип"
+            value={deviceData.type}
+            name="type"
+            onChange={handleChange}
+          >
+            {Array.isArray(device.types) &&
+              device.types.map((type) => (
+                <MenuItem key={type.id} value={type.id}>
+                  {type.name}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth margin="dense">
+          <InputLabel>Выберите бренд</InputLabel>
+          <Select
+            label="Выберите бренд"
+            value={deviceData.brand}
+            name="brand"
+            onChange={handleChange}
+          >
+            {Array.isArray(device.brands) &&
+              device.brands.map((brand) => (
+                <MenuItem key={brand.id} value={brand.id}>
+                  {brand.name}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+
         <TextField
           label="Название девайса"
           fullWidth
